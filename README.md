@@ -1,10 +1,16 @@
-# GAN-Models
-This repository is dedicated to the exploration and implementation of various Generative Adversarial Network (GAN) architectures. The goal is to understand, replicate, and experiment with a wide range of GAN variants, from foundational models to state-of-the-art advancements.
-# Overview
-Generative Adversarial Networks, introduced by Goodfellow et al. in 2014, have become one of the most powerful frameworks in generative modeling. This repository serves as a personal and educational resource for building and understanding different GAN architectures from scratch or based on academic research.
-# GAN Architectures Exploration
+# GAN Models
 
-A structured repository for implementing and experimenting with diverse Generative Adversarial Network (GAN) architectures in PyTorch. Designed for educational exploration, reproducibility, and future expansion.
+This repository is dedicated to the exploration and implementation of various Generative Adversarial Network (GAN) architectures using PyTorch. The objective is to understand, replicate, and experiment with a wide range of GAN variants—from foundational models to cutting-edge advancements.
+
+## Overview
+
+Generative Adversarial Networks (GANs), introduced by Goodfellow et al. in 2014, have become one of the most powerful frameworks in generative modeling. This project serves as a personal and educational resource for building and understanding GAN architectures from scratch, based on academic research and practical implementations.
+
+The repository aims to:
+- Recreate foundational GAN models from key research papers
+- Maintain a modular and reusable codebase for experimentation
+- Document training workflows and configurations
+- Share insights through structured examples and visualizations
 
 ## Table of Contents
 
@@ -13,45 +19,34 @@ A structured repository for implementing and experimenting with diverse Generati
 - [Planned Architectures](#planned-architectures)
 - [Setup](#setup)
 - [Usage](#usage)
-- [Directory Structure](#directory-structure)
-- [Contributing](#contributing)
-- [References](#references)
-- [License](#license)
+- [Requirements][#requirements]
 
-## Overview
+## Implemented Architectures
 
-This repository aims to:
-- Recreate foundational GAN models from key research papers
-- Maintain a modular codebase for easy experimentation
-- Offer clear documentation for each architecture and training pipeline
+-Image Inpainting GAN (custom implementation)
 
-## Implemented Architectures/Models
-- IMAGE IMPAINTING MODEL
+This section will expand as additional GAN models are added and verified.
 
-## Planned archetectures/models
+## Planned Architectures
+
 - CycleGAN
 - StyleGAN
 - BigGAN
-- Progressive GAN
+- Progressive Growing GAN
 - Pix2Pix
 - SRGAN
 
-
 ## Setup
-Training is either done on kaggle T4 GPU's or locally on an RTX4050 with cuda version 12.8
+
+Training is performed on either:
+- **Kaggle T4 GPUs** (for free cloud training)
+- **Local RTX 4050 Laptop GPU** with CUDA 12.8
 
 ### Requirements
 
 - Python 3.8+
 - PyTorch
-- NumPy
 - torchvision
+- NumPy
 - Matplotlib
 - tqdm
-
-### Installation
-
-```bash
-git clone https://github.com/yourusername/gan-architectures.git
-cd gan-architectures
-pip install -r requirements.txt
