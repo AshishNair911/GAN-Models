@@ -1,22 +1,37 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from torchvision.utils import make_grid
+import torch
+
+def tensor_to_img(tensor):
+    """Convert [-1, 1] or [0, 1] Tensor image to NumPy image [0, 1]"""
+    tensor = tensor.detach().cpu()
+    if tensor.min() < 0:
+        tensor = (tensor + 1) / 2  # [-1,1] → [0,1]
+    return tensor.clamp(0, 1).permute(1, 2, 0).numpy()
 
 def visualize_output(epoch, generator, dataloader, num_images=5, device="cuda"):
     generator.eval()
     input_tensor, gt_image, mask = next(iter(dataloader))
-    input_tensor, gt_image = input_tensor.to(device), gt_image.to(device)
+    input_tensor = input_tensor.to(device)
+    gt_image = gt_image.to(device)
+
     with torch.no_grad():
         generated_images = generator(input_tensor[:num_images])
 
-    input_grid = make_grid(input_tensor[:num_images].cpu(), nrow=num_images, normalize=True).numpy()
-    gt_grid = make_grid(gt_image[:num_images].cpu(), nrow=num_images, normalize=True).numpy()
-    gen_grid = make_grid(generated_images.cpu(), nrow=num_images, normalize=True).numpy()
+    plt.figure(figsize=(12, num_images * 3))
 
-    def np_img(grid): return np.transpose(grid, (1, 2, 0))
+    for i in range(num_images):
+        orig = tensor_to_img(gt_image[i])
+        masked = tensor_to_img(input_tensor[i, :3] * (1 - input_tensor[i, 3:4]))
+        output = tensor_to_img(generated_images[i])
 
-    fig, axs = plt.subplots(3, 1, figsize=(10, 12))
-    axs[0].imshow(np_img(input_grid)); axs[0].set_title("Masked Input"); axs[0].axis("off")
-    axs[1].imshow(np_img(gt_grid)); axs[1].set_title("Ground Truth"); axs[1].axis("off")
-    axs[2].imshow(np_img(gen_grid)); axs[2].set_title("Generated Output"); axs[2].axis("off")
-    plt.tight_layout(); plt.show()
+        for j, img in enumerate([orig, masked, output]):
+            ax = plt.subplot(num_images, 3, i * 3 + j + 1)
+            ax.imshow(img)
+            ax.axis("off")
+            if i == 0:
+                ax.set_title(["Original", "Masked", "Inpainted"][j])
+
+    plt.suptitle(f"Inpainting Results (Epoch {epoch})", fontsize=16)
+    plt.tight_layout()
+    plt.show()
