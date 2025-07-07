@@ -19,8 +19,6 @@ The repository aims to:
 - [Planned Architectures](#planned-architectures)
 - [Setup](#setup)
 - [Usage](#usage)
-- [Requirements][#requirements]
-
 ## Implemented Architectures
 
 -Image Inpainting GAN (custom implementation)
